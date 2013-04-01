@@ -242,11 +242,13 @@ int main(void)
 	UARTSend((unsigned long)UART1_BASE, (unsigned char *) "AT#SD=1,0,80,www.telit.com", 26);
 	UARTCharPut(UART1_BASE, 13);
 	UARTCharPut(UART1_BASE, 26);
-	
 	// DELAY??
+
 	//	 Send to UART1 using UARTSend
 	//	UARTSend((unsigned long)UART1_BASE, (unsigned char*)"AT+CREG", 7);
 	//	UARTCharPut(UART1_BASE, 13);
+
 	while(1){}
+
 	return 0;
 }
