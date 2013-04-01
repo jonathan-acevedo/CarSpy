@@ -11,8 +11,8 @@
 #include "string.h"
 #include "stdio.h"
 
-volatile char response[100];
-volatile int a;
+volatile char response[1000];
+int a;
 char cChar;
 
 //*****************************************************************************
@@ -151,31 +151,102 @@ int main(void)
 
 	// Put a character to show start of example. This will display on the terminal.
 	UARTCharPut(UART0_BASE, '!');
-
 	//strlen((const char*)command)
 	// Send to UART0 using UARTSend. Testing purposes.
-	UARTSend((unsigned long)UART0_BASE, (unsigned char *) "ATD7875042871;", 14);
-	UARTCharPut(UART0_BASE, 13);
+	//	i=seg;
+//	while(i--){}
+//	UARTSend((unsigned long)UART1_BASE, (unsigned char *) "AT", 2);
+//	UARTCharPut(UART1_BASE, 13);
+//	UARTCharPut(UART1_BASE, 26);
+
+	/*
+	 * Prints out possible baud rates.
+	 */
+	//	i=seg;
+	//	while(i--){}
+	//	UARTSend((unsigned long)UART1_BASE, (unsigned char *) "AT+IPR=?",8);
+	//	UARTCharPut(UART1_BASE, 13);
+	//	UARTCharPut(UART1_BASE, 26);
+
+	/*
+	 *Creates context 1.
+	 *APN: carspy.ece.uprm.edu
+	 *IP address: dynamically assigned by the ISP
+	 *Packet Data Protocol type: Internet Protocol (IP)
+	 *Data compression: OFF
+	 *Header compression: OFF
+	 *
+	 */
+		i=seg;
+		while(i--){}
+		UARTSend((unsigned long)UART1_BASE, (unsigned char *) "AT+CGDCONT=1,IP,ibox.tim.it,0.0.0.0,0,0 <cr>",44);//52 with carspy.ece...
+		UARTCharPut(UART1_BASE, 13);
+		UARTCharPut(UART1_BASE, 26);
+
+	/*
+	 * The minimum quality of service requested parameters represent the
+	 * boundary under which the connection quality is not anymore
+	 * acceptable and will be terminated
+	 * CID: 1
+	 * Precedence: 0 (subcribed) Applied when network has a heavy duty and user precedence must be followed.
+	 * Delay: 0 Maximum allowable time delay class between the sending and the reception of a packet
+	 * Reliability: 0 connection reliability requested, the higher is the number the less reliable is the data exchanged
+	 * Peak: 0 Peak data transfer throughput
+	 * Mean: 0 Mean data transfer throughput
+	 * @returns OK/ERROR
+	 */
+	//	i=seg;
+	//	while(i--){}
+	//	UARTSend((unsigned long)UART1_BASE, (unsigned char *) "AT+CGQMIN=1,0,0,0,0,0",21);
+	//	UARTCharPut(UART1_BASE, 13);
+	//	UARTCharPut(UART1_BASE, 26);
+
+	/*
+	 *
+	 */
+	//	i=seg;
+	//	while(i--){}
+	//	UARTSend((unsigned long)UART1_BASE, (unsigned char *) "AT+CGQREQ=1,0,0,3,0,0",21);
+	//	UARTCharPut(UART1_BASE, 13);
+	//	UARTCharPut(UART1_BASE, 26);
+
+	/*
+	 *Telit module enters Data Traffic Mode (Socket Mode)
+	 */
+	//	i=seg;
+	//	while(i--){}
+	//	UARTSend((unsigned long)UART1_BASE, (unsigned char *) "ATD*99***1#",11);
+	//	UARTCharPut(UART1_BASE, 13);
+	//	UARTCharPut(UART1_BASE, 26);
+	//
+	//	SysCtlDelay(200000000);
+
+	/*
+	 * HAS to be sent after a connection has been established. It requires +++ to exit Data Traffic Mode (Socket Mode)
+	 */
+	//	i=seg;
+	//	while(i--){}
+	//	UARTSend((unsigned long)UART1_BASE, (unsigned char *) "+++",3);
+	//	SysCtlDelay(100000000); //Needs 2 second delay between the command and the LF and CR characters for correct reading of pause command.
+	//	UARTCharPut(UART1_BASE, 13);
+	//	UARTCharPut(UART1_BASE, 26);
 
 	i=seg;
 	while(i--){}
-	UARTSend((unsigned long)UART1_BASE, (unsigned char *) "ATH",3);
+	UARTSend((unsigned long)UART1_BASE, (unsigned char *) "AT#SCFG=1,1,512,30,300,100", 26);
 	UARTCharPut(UART1_BASE, 13);
 	UARTCharPut(UART1_BASE, 26);
 
 	i=seg;
 	while(i--){}
-	UARTSend((unsigned long)UART1_BASE, (unsigned char *) "AT+CREG?", 8);
+	UARTSend((unsigned long)UART1_BASE, (unsigned char *) "AT#SD=1,0,80,www.telit.com", 26);
 	UARTCharPut(UART1_BASE, 13);
 	UARTCharPut(UART1_BASE, 26);
-
-
-	i=seg;
-	while(i--){}
-
+	
+	// DELAY??
+	//	 Send to UART1 using UARTSend
+	//	UARTSend((unsigned long)UART1_BASE, (unsigned char*)"AT+CREG", 7);
+	//	UARTCharPut(UART1_BASE, 13);
 	while(1){}
-
 	return 0;
 }
-
-
