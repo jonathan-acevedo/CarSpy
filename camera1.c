@@ -14,7 +14,7 @@
 volatile char response[100];
 volatile int a;
 char cChar;
-
+int a; 
 //*****************************************************************************
 //
 // Send a string to the UART.
